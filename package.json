@@ -1,0 +1,9 @@
+{
+  "name": "universal-react-app",
+  "private": true,
+  "workspaces": [
+    "expo-app",
+    "nextjs-app",
+    "tauri-app"
+  ]
+}
