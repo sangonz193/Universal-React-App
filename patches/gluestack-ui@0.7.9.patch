@@ -1,0 +1,32 @@
+diff --git a/dist/util/index.js b/dist/util/index.js
+index 9fe40c75f1d3cf389c52267d7120d00fdc0a9678..1f0a30961da2e746197c07d052987d88e1207ccd 100644
+--- a/dist/util/index.js
++++ b/dist/util/index.js
+@@ -179,15 +179,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+             if (fs_extra_1.default.existsSync(packageLockPath)) {
+                 return 'npm';
+             }
++            else if (fs_extra_1.default.existsSync(bunLockPath)) {
++                return 'bun';
++            }
+             else if (fs_extra_1.default.existsSync(yarnLockPath)) {
+                 return 'yarn';
+             }
+             else if (fs_extra_1.default.existsSync(pnpmLockPath)) {
+                 return 'pnpm';
+             }
+-            else if (fs_extra_1.default.existsSync(bunLockPath)) {
+-                return 'bun';
+-            }
+             else if (currentDir === (0, path_1.dirname)(currentDir)) {
+                 // Reached root directory
+                 return null;
+@@ -216,7 +216,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+     const installDependencies = (input, additionalDependencies) => __awaiter(void 0, void 0, void 0, function* () {
+         try {
+             //add npmrc file for legacy-peer-deps-support
+-            (0, child_process_1.execSync)('npm config --location=project set legacy-peer-deps=true');
++            // (0, child_process_1.execSync)('npm config --location=project set legacy-peer-deps=true');
+             let versionManager = findLockFileType();
+             if (!versionManager) {
+                 versionManager = yield promptVersionManager();

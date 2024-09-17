@@ -4,10 +4,15 @@
   "workspaces": [
     "expo-app",
     "nextjs-app",
-    "tauri-app"
+    "tauri-app",
+    "shared"
   ],
   "devDependencies": {
+    "gluestack-ui": "^0.7.9",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6"
+  },
+  "patchedDependencies": {
+    "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch"
   }
 }
