@@ -3,27 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "imports": {
-    "##/*": [
-      "./*",
-      "./*.ts",
-      "./*.js",
-      "./*.tsx",
-      "./*/index.ts",
-      "./*/index.tsx"
-    ]
-  },
-  "exports": {
-    "./*": [
-      "./*/index.tsx",
-      "./*/index.js",
-      "./*/index.ts",
-      "./*.ts",
-      "./*.js",
-      "./*.tsx",
-      "./*"
-    ]
-  },
   "scripts": {
     "tsc": "tsc --noEmit"
   },

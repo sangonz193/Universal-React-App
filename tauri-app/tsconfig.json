@@ -23,6 +23,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["src", "*.js"],
+  "include": ["src", "*.js", "../shared/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

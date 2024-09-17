@@ -1,7 +1,7 @@
 import React from "react"
 
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
-import { Text as StyledRNText } from "##/react-native"
+import { Text as StyledRNText } from "../../../react-native"
 import { Text as RNText } from "react-native"
 import { textStyle } from "./styles"
 
