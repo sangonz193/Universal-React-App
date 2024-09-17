@@ -16,6 +16,7 @@
   },
   "patchedDependencies": {
     "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch",
-    "react-native-css-interop@0.0.36": "patches/react-native-css-interop@0.0.36.patch"
+    "react-native-css-interop@0.0.36": "patches/react-native-css-interop@0.0.36.patch",
+    "@legendapp/motion@2.4.0": "patches/@legendapp%2Fmotion@2.4.0.patch"
   }
 }

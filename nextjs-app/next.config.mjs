@@ -7,6 +7,8 @@ const nextConfig = {
     "expo",
     "nativewind",
     "react-native-css-interop",
+    "shared",
+    "@legendapp/motion"
   ],
   experimental: {
     turbo: {

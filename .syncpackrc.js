@@ -13,13 +13,6 @@ const config = {
       pinVersion: "workspace:*",
     },
     {
-      label: "Use '*' under 'peerDependencies' everywhere",
-      packages: ["**"],
-      dependencies: ["**"],
-      dependencyTypes: ["peer"],
-      pinVersion: "*",
-    },
-    {
       label:
         "Ensure all packages use whatever version the expo-app package is using",
       dependencies: ["react-native", "react-native-web", "react-native-svg"],

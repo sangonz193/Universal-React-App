@@ -1,4 +1,4 @@
-import { variables } from "./gluestack-ui-provider/config"
+import { variables } from "../components/ui/gluestack-ui-provider/config"
 
 export const DEFAULT_SCHEMA = "light"
 

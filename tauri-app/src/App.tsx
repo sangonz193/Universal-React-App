@@ -1,55 +1,58 @@
-import { useState } from "react"
-import reactLogo from "./assets/react.svg"
-import { invoke } from "@tauri-apps/api/core"
 import "./App.css"
-import { Test } from "shared"
+
+import { useState } from "react"
+import { invoke } from "@tauri-apps/api/core"
+import { Demo, DemoButton } from "shared/components/demo"
+import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
+import { Heading } from "shared/components/ui/heading"
+import {
+  AlertDialog,
+  AlertDialogBackdrop,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+} from "shared/components/ui/alert-dialog"
+import { Button, ButtonText } from "shared/components/ui/button"
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("")
-  const [name, setName] = useState("")
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }))
+    const message = (await invoke("greet", { name: "there" })) as string
+    setGreetMsg(message)
   }
 
   return (
-    <div className="container">
-      <Test />
+    <GluestackUIProvider
+      className="flex grow flex-col items-center justify-center"
+      mode="system"
+    >
+      <Demo className="m-auto">
+        <DemoButton onPress={greet}>Greet</DemoButton>
+      </Demo>
 
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault()
-          greet()
-        }}
+      <AlertDialog
+        isOpen={!!greetMsg}
+        onClose={() => setGreetMsg("")}
+        size="xs"
       >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
+        <AlertDialogBackdrop />
 
-      <p>{greetMsg}</p>
-    </div>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <Heading className="text-typography-950 font-semibold">
+              {greetMsg}
+            </Heading>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <Button onPress={() => setGreetMsg("")}>
+              <ButtonText>OK</ButtonText>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </GluestackUIProvider>
   )
 }
 

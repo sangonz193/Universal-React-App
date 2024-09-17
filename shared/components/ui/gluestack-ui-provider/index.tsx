@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ComponentProps } from "react"
 import { config } from "./config"
 import { ColorSchemeName, useColorScheme, View, ViewProps } from "react-native"
 import { OverlayProvider } from "@gluestack-ui/overlay"
@@ -22,9 +22,8 @@ export function GluestackUIProvider({
   ...props
 }: {
   mode?: "light" | "dark" | "system"
-  children?: React.ReactNode
-  style?: ViewProps["style"]
-}) {
+  className?: string
+} & ViewProps) {
   const colorScheme = useColorScheme()
 
   const colorSchemeName = getColorSchemeName(colorScheme, mode)
@@ -33,6 +32,7 @@ export function GluestackUIProvider({
 
   return (
     <View
+      {...props}
       style={[
         config[colorSchemeName],
         { flex: 1, height: "100%", width: "100%" },

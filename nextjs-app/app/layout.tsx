@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <StyledJsxRegistry>
-          <GluestackUIProvider mode="light">{children}</GluestackUIProvider>
+          <GluestackUIProvider mode="system">{children}</GluestackUIProvider>
         </StyledJsxRegistry>
       </body>
     </html>

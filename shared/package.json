@@ -3,6 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "peerDependencies": {
-    "nativewind": "*"
+    "@legendapp/motion": "^2.4.0",
+    "nativewind": "4.0.36"
+  },
+  "devDependencies": {
+    "@types/react": "~18.2.45"
+  },
+  "dependencies": {
+    "@expo/html-elements": "0.4.2",
+    "@gluestack-ui/alert-dialog": "^0.1.30",
+    "@gluestack-ui/button": "^1.0.7"
   }
 }
