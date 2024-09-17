@@ -11,10 +11,7 @@ export function Demo({
 }: PropsWithChildren & { className?: string }) {
   return (
     <View
-      className={cn(
-        "bg-background-50 border-outline-200 mx-auto w-60 gap-3 rounded-xl border p-4",
-        className,
-      )}
+      className={cn("mx-auto w-60 max-w-full gap-3 rounded-xl p-5", className)}
     >
       <Text bold className="p-2 text-center">
         This is a demo component
