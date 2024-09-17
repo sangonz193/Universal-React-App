@@ -11,7 +11,9 @@ export const Image = cssInterop(RN.Image, { className: "style" })
 export const Pressable = cssInterop(RN.Pressable, { className: "style" })
 export const SafeAreaView = cssInterop(RN.SafeAreaView, { className: "style" })
 export const Switch = cssInterop(RN.Switch, { className: "style" })
-export const Text = cssInterop(RN.Text, { className: "style" })
+export const Text = cssInterop(RN.Text, {
+  className: "style",
+}) as typeof RN.Text
 export const TouchableHighlight = cssInterop(RN.TouchableHighlight, {
   className: "style",
 })

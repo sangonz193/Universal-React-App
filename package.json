@@ -2,17 +2,22 @@
   "name": "universal-react-app",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.1.26",
   "workspaces": [
     "expo-app",
     "nextjs-app",
     "tauri-app",
     "shared"
   ],
+  "scripts": {
+    "tsc": "turbo run tsc"
+  },
   "devDependencies": {
     "gluestack-ui": "^0.7.9",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "syncpack": "^13.0.0"
+    "syncpack": "^13.0.0",
+    "turbo": "^2.1.2"
   },
   "patchedDependencies": {
     "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch",

@@ -1,12 +1,14 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import reactNativeWeb from "vite-plugin-react-native-web"
+import tsconfigPaths from "vite-tsconfig-paths"
 
 const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [
+    tsconfigPaths(),
     reactNativeWeb(),
     react({
       jsxImportSource: "nativewind",

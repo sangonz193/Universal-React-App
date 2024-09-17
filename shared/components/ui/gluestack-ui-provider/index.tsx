@@ -1,4 +1,3 @@
-import React, { ComponentProps } from "react"
 import { config } from "./config"
 import { ColorSchemeName, useColorScheme, View, ViewProps } from "react-native"
 import { OverlayProvider } from "@gluestack-ui/overlay"

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Demo as SharedDemo, DemoButton } from "shared/components/demo"
+import { Demo, DemoButton } from "shared/components/demo"
 import {
   AlertDialog,
   AlertDialogBackdrop,
@@ -12,14 +12,14 @@ import {
 import { Button, ButtonText } from "shared/components/ui/button"
 import { Heading } from "shared/components/ui/heading"
 
-export function Demo() {
+function _Demo() {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <SharedDemo className="m-auto">
+      <Demo className="m-auto">
         <DemoButton onPress={() => setOpen(true)}>Greet</DemoButton>
-      </SharedDemo>
+      </Demo>
 
       <AlertDialog isOpen={open} onClose={() => setOpen(false)} size="xs">
         <AlertDialogBackdrop />
@@ -40,3 +40,5 @@ export function Demo() {
     </>
   )
 }
+
+export { _Demo as Demo }
