@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react"
 import { useServerInsertedHTML } from "next/navigation"
 import { StyleRegistry, createStyleRegistry } from "styled-jsx"
-// @ts-ignore
 // eslint-disable-next-line @next/next/no-document-import-in-page
 import { Main } from "next/document"
 import { AppRegistry } from "react-native-web"
@@ -20,9 +19,9 @@ export default function StyledJsxRegistry({
   const isServerInserted = useRef(false)
 
   useServerInsertedHTML(() => {
-    // @ts-ignore
+    // @ts-expect-error seems to work?
     AppRegistry.registerComponent("Main", () => Main)
-    // @ts-ignore
+    // @ts-expect-error seems to work?
     const { getStyleElement } = AppRegistry.getApplication("Main")
     if (!isServerInserted.current) {
       isServerInserted.current = true
