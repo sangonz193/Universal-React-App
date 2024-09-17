@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"command": "bun",
+	"tasks": [
+		{
+			"label": "Expo: Android",
+			"args": ["android"],
+			"options": {
+				"cwd": "${workspaceFolder}/expo-app"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Expo: iOS",
+			"args": ["ios"],
+			"options": {
+				"cwd": "${workspaceFolder}/expo-app"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Next.js",
+			"args": ["dev"],
+			"options": {
+				"cwd": "${workspaceFolder}/nextjs-app"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Tauri",
+			"args": ["tauri", "dev"],
+			"options": {
+				"cwd": "${workspaceFolder}/tauri-app"
+			},
+			"problemMatcher": []
+		}
+	]
+}
