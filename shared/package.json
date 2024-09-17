@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "peerDependencies": {
-    "nativewind": "4.0.36"
+    "nativewind": "*"
   }
 }

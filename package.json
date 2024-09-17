@@ -1,6 +1,7 @@
 {
   "name": "universal-react-app",
   "private": true,
+  "type": "module",
   "workspaces": [
     "expo-app",
     "nextjs-app",
@@ -10,7 +11,8 @@
   "devDependencies": {
     "gluestack-ui": "^0.7.9",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6"
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "syncpack": "^13.0.0"
   },
   "patchedDependencies": {
     "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch",
