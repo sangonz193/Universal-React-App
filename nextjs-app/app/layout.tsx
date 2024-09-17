@@ -1,4 +1,7 @@
 import type { Metadata } from "next"
+
+import StyledJsxRegistry from "./registry"
+import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
 import localFont from "next/font/local"
 import "./globals.css"
 
@@ -28,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <StyledJsxRegistry>
+          <GluestackUIProvider mode="light">{children}</GluestackUIProvider>
+        </StyledJsxRegistry>
       </body>
     </html>
   )

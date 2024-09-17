@@ -10,17 +10,30 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@gluestack-ui/nativewind-utils": "^1.0.24",
+    "@gluestack-ui/overlay": "^0.1.15",
+    "@gluestack-ui/toast": "^1.0.7",
+    "@tauri-apps/api": ">=2.0.0-rc.0",
+    "@tauri-apps/plugin-shell": ">=2.0.0-rc.0",
+    "nativewind": "4.0.36",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@tauri-apps/api": ">=2.0.0-rc.0",
-    "@tauri-apps/plugin-shell": ">=2.0.0-rc.0"
+    "react-native-svg": "*",
+    "react-native-web": "^0.19.12",
+    "shared": "workspace:*",
+    "tailwindcss": "^3.4.11"
   },
   "devDependencies": {
+    "@tauri-apps/cli": ">=2.0.0-rc.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.20",
+    "jscodeshift": "0.15.2",
+    "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
-    "@tauri-apps/cli": ">=2.0.0-rc.0"
+    "vite-plugin-react-native-web": "^1.0.3"
   }
 }

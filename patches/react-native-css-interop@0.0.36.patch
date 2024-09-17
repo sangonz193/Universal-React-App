@@ -1,0 +1,242 @@
+diff --git a/dist/runtime/api.d.ts b/dist/runtime/api.d.ts
+index 05c3461ba668b343efb2f31336ea89a5fd8e13b9..0e94bc5af52a437c99c42352e6ad342c36204a82 100644
+--- a/dist/runtime/api.d.ts
++++ b/dist/runtime/api.d.ts
+@@ -1 +1,2 @@
+ export * from "./web/api";
++export * from "./web/interopComponentsMap";
+diff --git a/dist/runtime/api.js b/dist/runtime/api.js
+index d532aa8aa8d3375a36e26256f802c5f8ded1ba3e..eab3a0a8b4e564e8370f23b2b1cebc2c656fe99e 100644
+--- a/dist/runtime/api.js
++++ b/dist/runtime/api.js
+@@ -15,4 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+ __exportStar(require("./web/api"), exports);
++__exportStar(require("../runtime-web-interopComponentsMap"), exports);
+ //# sourceMappingURL=api.js.map
+\ No newline at end of file
+diff --git a/dist/runtime/components.js b/dist/runtime/components.js
+index c4832b00d557ae837901dbe927f6dfcc4fc70ad2..63aa94e20f4bf6548e2db05f00f9723542636f21 100644
+--- a/dist/runtime/components.js
++++ b/dist/runtime/components.js
+@@ -1,4 +1,5 @@
+ "use strict";
++"use client";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ const react_native_1 = require("react-native");
+ const api_1 = require("./api");
+diff --git a/dist/runtime/native/resolve-value.d.ts b/dist/runtime/native/resolve-value.d.ts
+index 05710bd9ab78b50b878c272101613f294d698346..21028f3df540416486a2614a7b393438b22fa136 100644
+--- a/dist/runtime/native/resolve-value.d.ts
++++ b/dist/runtime/native/resolve-value.d.ts
+@@ -17,4 +17,8 @@ export declare function setDeep(target: Record<string, any>, paths: string[], va
+ export declare function getWidth(state: PropState): number;
+ export declare function getHeight(state: PropState): number;
+ export declare const defaultValues: Record<string, AnimatableValue | ((effect: Effect) => AnimatableValue)>;
+-export declare function calc(state: PropState, expression: RuntimeValueDescriptor[], style?: Record<string, any>): string | number | undefined;
++export declare function calc(state: PropState, expression: RuntimeValueDescriptor, style?: Record<string, any>): {
++    mode: string;
++    raw: number;
++    value: string | number;
++} | undefined;
+diff --git a/dist/runtime/native/resolve-value.js b/dist/runtime/native/resolve-value.js
+index 5f9c2b2dbca000f4f41ea53c838d9587aaf7d092..cec8e9ab7aa1be3f41093ec25f09bceb7a3daa16 100644
+--- a/dist/runtime/native/resolve-value.js
++++ b/dist/runtime/native/resolve-value.js
+@@ -23,12 +23,59 @@ function resolveValue(state, descriptor, style) {
+     }
+     switch (descriptor.name) {
+         case "var": {
+-            const value = resolve(state, descriptor.arguments[0], style);
++            let value = resolve(state, descriptor.arguments[0], style);
+             if (typeof value === "string")
+-                return getVar(state, value, style);
++                value = getVar(state, value, style);
++            if (value === undefined && descriptor.arguments[1]) {
++                value = resolveValue(state, descriptor.arguments[1], style);
++            }
++            return value;
+         }
+         case "calc": {
+-            return calc(state, descriptor.arguments, style);
++            return calc(state, descriptor.arguments, style)?.value;
++        }
++        case "max": {
++            let mode;
++            let values = [];
++            for (const arg of descriptor.arguments) {
++                const result = calc(state, arg, style);
++                if (result) {
++                    if (!mode)
++                        mode = result?.mode;
++                    if (result.mode === mode) {
++                        values.push(result.raw);
++                    }
++                }
++            }
++            const max = Math.max(...values);
++            return mode === "percentage" ? `${max}%` : max;
++        }
++        case "min": {
++            let mode;
++            let values = [];
++            for (const arg of descriptor.arguments) {
++                const result = calc(state, arg, style);
++                if (result) {
++                    if (!mode)
++                        mode = result?.mode;
++                    if (result.mode === mode) {
++                        values.push(result.raw);
++                    }
++                }
++            }
++            const min = Math.min(...values);
++            return mode === "percentage" ? `${min}%` : min;
++        }
++        case "clamp": {
++            const min = calc(state, descriptor.arguments[0], style);
++            const val = calc(state, descriptor.arguments[1], style);
++            const max = calc(state, descriptor.arguments[2], style);
++            if (!min || !val || !max)
++                return;
++            if (min.mode !== val.mode && max.mode !== val.mode)
++                return;
++            const value = Math.max(min.raw, Math.min(val.raw, max.raw));
++            return val.mode === "percentage" ? `${value}%` : value;
+         }
+         case "vh": {
+             const value = resolve(state, descriptor.arguments[0], style);
+@@ -357,6 +404,9 @@ function calc(state, expression, style) {
+     const values = [];
+     const ops = [];
+     let mode;
++    if (!Array.isArray(expression)) {
++        expression = [expression];
++    }
+     for (let token of expression) {
+         switch (typeof token) {
+             case "undefined":
+@@ -427,7 +477,11 @@ function calc(state, expression, style) {
+     if (!mode)
+         return;
+     const value = round(values[0]);
+-    return mode === "percentage" ? `${value}%` : value;
++    return {
++        mode,
++        raw: value,
++        value: mode === "percentage" ? `${value}%` : value,
++    };
+ }
+ exports.calc = calc;
+ //# sourceMappingURL=resolve-value.js.map
+\ No newline at end of file
+diff --git a/dist/runtime/web/api.d.ts b/dist/runtime/web/api.d.ts
+index d38ce4afea95efb1e87ce7516bfd163348a2cc3b..3ec49798c4774b03896126cb26e9c82a4f328f18 100644
+--- a/dist/runtime/web/api.d.ts
++++ b/dist/runtime/web/api.d.ts
+@@ -1,16 +1,10 @@
+-/// <reference types="react" />
+ import { CssInterop } from "../../types";
+ export { StyleSheet } from "./stylesheet";
+ export { colorScheme } from "./color-scheme";
+ export { rem } from "./rem";
+-export declare const interopComponents: Map<string | object, import("react").ComponentType<{}>>;
++export { useColorScheme } from "./useColorScheme";
+ export declare const cssInterop: CssInterop;
+ export declare const remapProps: CssInterop;
+-export declare function useColorScheme(): {
+-    colorScheme: "light" | "dark" | undefined;
+-    setColorScheme: (value: "light" | "dark" | "system") => void;
+-    toggleColorScheme: () => void;
+-};
+ export declare const useUnstableNativeVariable: (name: string) => undefined;
+ export declare function vars<T extends Record<`--${string}`, string | number>>(variables: T): Record<string, string>;
+ export declare function useSafeAreaEnv(): {} | undefined;
+diff --git a/dist/runtime/web/api.js b/dist/runtime/web/api.js
+index 99eda40f951b381f5be4012a24138afbd1c7fba1..c01968dfd12837c552d01470f26bab5b72781fb4 100644
+--- a/dist/runtime/web/api.js
++++ b/dist/runtime/web/api.js
+@@ -1,17 +1,19 @@
+ "use strict";
++"use client";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.useSafeAreaEnv = exports.vars = exports.useUnstableNativeVariable = exports.useColorScheme = exports.remapProps = exports.cssInterop = exports.interopComponents = exports.rem = exports.colorScheme = exports.StyleSheet = void 0;
++exports.useSafeAreaEnv = exports.vars = exports.useUnstableNativeVariable = exports.remapProps = exports.cssInterop = exports.useColorScheme = exports.rem = exports.colorScheme = exports.StyleSheet = void 0;
+ const react_1 = require("react");
+ const config_1 = require("../config");
+-const color_scheme_1 = require("./color-scheme");
+ var stylesheet_1 = require("./stylesheet");
+ Object.defineProperty(exports, "StyleSheet", { enumerable: true, get: function () { return stylesheet_1.StyleSheet; } });
+-var color_scheme_2 = require("./color-scheme");
+-Object.defineProperty(exports, "colorScheme", { enumerable: true, get: function () { return color_scheme_2.colorScheme; } });
++var color_scheme_1 = require("./color-scheme");
++Object.defineProperty(exports, "colorScheme", { enumerable: true, get: function () { return color_scheme_1.colorScheme; } });
+ var rem_1 = require("./rem");
+ Object.defineProperty(exports, "rem", { enumerable: true, get: function () { return rem_1.rem; } });
+-exports.interopComponents = new Map();
++const interopComponentsMap_1 = require("../../runtime-web-interopComponentsMap");
+ const ForwardRefSymbol = Symbol.for("react.forward_ref");
++var useColorScheme_1 = require("../../runtime-web-useColorScheme");
++Object.defineProperty(exports, "useColorScheme", { enumerable: true, get: function () { return useColorScheme_1.useColorScheme; } });
+ const cssInterop = (baseComponent, mapping) => {
+     const configs = (0, config_1.getNormalizeConfig)(mapping);
+     const interopComponent = (0, react_1.forwardRef)(function CssInteropComponent({ ...props }, ref) {
+@@ -56,23 +58,11 @@ const cssInterop = (baseComponent, mapping) => {
+         }
+     });
+     interopComponent.displayName = `CssInterop.${baseComponent.displayName ?? baseComponent.name ?? "unknown"}`;
+-    exports.interopComponents.set(baseComponent, interopComponent);
++    interopComponentsMap_1.interopComponents.set(baseComponent, interopComponent);
+     return interopComponent;
+ };
+ exports.cssInterop = cssInterop;
+ exports.remapProps = exports.cssInterop;
+-function useColorScheme() {
+-    const [effect, setEffect] = (0, react_1.useState)(() => ({
+-        rerun: () => setEffect((s) => ({ ...s })),
+-        dependencies: new Set(),
+-    }));
+-    return {
+-        colorScheme: color_scheme_1.colorScheme.get(effect),
+-        setColorScheme: color_scheme_1.colorScheme.set,
+-        toggleColorScheme: color_scheme_1.colorScheme.toggle,
+-    };
+-}
+-exports.useColorScheme = useColorScheme;
+ const useUnstableNativeVariable = (name) => {
+     if (process.env.NODE_ENV !== "production") {
+         console.log("useUnstableNativeVariable is not supported on web.");
+diff --git a/node_modules/react-native-css-interop/dist/runtime-web-interopComponentsMap.js b/dist/runtime-web-interopComponentsMap.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..4f6e8804fa36a693df1418d0aa9bb53a01326000
+--- /dev/null
++++ b/dist/runtime-web-interopComponentsMap.js
+@@ -0,0 +1,4 @@
++"use strict";
++Object.defineProperty(exports, "__esModule", { value: true });
++exports.interopComponents = void 0;
++exports.interopComponents = new Map();
+diff --git a/node_modules/react-native-css-interop/dist/runtime-web-useColorScheme.js b/dist/runtime-web-useColorScheme.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..77712edbe74bc22aee26e57773e9a54d236270bd
+--- /dev/null
++++ b/dist/runtime-web-useColorScheme.js
+@@ -0,0 +1,17 @@
++"use strict";
++Object.defineProperty(exports, "__esModule", { value: true });
++exports.useColorScheme = void 0;
++const react_1 = require("react");
++const color_scheme_1 = require("./runtime/web/color-scheme");
++function useColorScheme() {
++    const [effect, setEffect] = (0, react_1.useState)(() => ({
++        rerun: () => setEffect((s) => ({ ...s })),
++        dependencies: new Set(),
++    }));
++    return {
++        colorScheme: color_scheme_1.colorScheme.get(effect),
++        setColorScheme: color_scheme_1.colorScheme.set,
++        toggleColorScheme: color_scheme_1.colorScheme.toggle,
++    };
++}
++exports.useColorScheme = useColorScheme;

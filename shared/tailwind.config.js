@@ -20,6 +20,8 @@ module.exports = /** @satisfies {import('tailwindcss').Config} */ ({
     "./components/**/*.{tsx,ts}",
   ],
 
+  important: "html",
+
   presets: [
     require(// @ts-ignore
     "nativewind/preset"),

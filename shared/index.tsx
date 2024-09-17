@@ -1,10 +1,6 @@
 import React from "react"
-import { Text, View } from "./react-native"
+import { Text } from "./components/ui/text"
 
 export function Test() {
-  return (
-    <View>
-      <Text className="text-red-400">Test</Text>
-    </View>
-  )
+  return <Text className="text-green-400">Test</Text>
 }

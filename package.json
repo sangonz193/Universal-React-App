@@ -13,6 +13,7 @@
     "prettier-plugin-tailwindcss": "^0.6.6"
   },
   "patchedDependencies": {
-    "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch"
+    "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch",
+    "react-native-css-interop@0.0.36": "patches/react-native-css-interop@0.0.36.patch"
   }
 }

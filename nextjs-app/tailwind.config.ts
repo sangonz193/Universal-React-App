@@ -1,19 +1,11 @@
-import type { Config } from "tailwindcss"
+import sharedConfig from "shared/tailwind.config"
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  ...sharedConfig,
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    ...sharedConfig.content,
+    "./app/**/*.{tsx,jsx,ts,js}",
+    "./components/**/*.{tsx,jsx,ts,js}",
   ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  },
-  plugins: [],
 }
-export default config
