@@ -66,11 +66,11 @@ jobs:
             --platform=${{ github.event.inputs.platform }} \
             --profile=${{ github.event.inputs.profile }}
 
-      - name: 🚢 Submit
-        if: ${{ github.event.inputs.should_submit }}
-        run: eas submit -p ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --path app-build
-
       - uses: actions/upload-artifact@v4
         with:
           name: app-build
           path: expo-app/app-build
+
+      - name: 🚢 Submit
+        if: ${{ github.event.inputs.should_submit }}
+        run: eas submit -p ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --path app-build
