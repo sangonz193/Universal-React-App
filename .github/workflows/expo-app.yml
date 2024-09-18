@@ -57,6 +57,8 @@ jobs:
 
       - name: 👷 Build app
         working-directory: expo-app
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: |
           eas build --local \
             --non-interactive \
