@@ -4,14 +4,21 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "@legendapp/motion": "^2.4.0",
     "nativewind": "4.0.36"
   },
   "devDependencies": {
-    "@types/react": "~18.2.45"
+    "@types/eslint": "^8",
+    "@types/react": "~18.2.45",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^8",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.36.1"
   },
   "dependencies": {
     "@expo/html-elements": "0.4.2",

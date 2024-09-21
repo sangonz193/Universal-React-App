@@ -1,31 +1,30 @@
+/* eslint-env node */
 // @ts-check
-const gluestackPlugin = require("@gluestack-ui/nativewind-utils/tailwind-plugin")
-const path = require("path")
-const fs = require("fs")
 
-module.exports = /** @satisfies {import('tailwindcss').Config} */ ({
+import gluestackPlugin from "@gluestack-ui/nativewind-utils/tailwind-plugin"
+import { resolve, join } from "path"
+import { readdirSync, statSync } from "fs"
+import nativewindPreset from "nativewind/preset"
+
+export default /** @satisfies {import('tailwindcss').Config} */ ({
   darkMode: "media",
   content: [
-    path.resolve(__dirname, "./index.tsx"),
-    ...fs
-      .readdirSync(__dirname)
+    resolve(__dirname, "./index.tsx"),
+    ...readdirSync(__dirname)
       .filter((fileName) => {
         return (
           fileName !== "node_modules" &&
-          fs.statSync(path.join(__dirname, fileName)).isDirectory()
+          statSync(join(__dirname, fileName)).isDirectory()
         )
       })
-      .map((dir) => path.resolve(__dirname, `${dir}/**/*.{ts,tsx}`)),
+      .map((dir) => resolve(__dirname, `${dir}/**/*.{ts,tsx}`)),
     "./app/**/*.{tsx,ts}",
     "./components/**/*.{tsx,ts}",
   ],
 
   important: "html",
 
-  presets: [
-    require(// @ts-ignore
-    "nativewind/preset"),
-  ],
+  presets: [nativewindPreset],
   safelist: [
     {
       pattern:
@@ -215,5 +214,5 @@ module.exports = /** @satisfies {import('tailwindcss').Config} */ ({
       },
     },
   },
-  plugins: [gluestackPlugin.default],
+  plugins: [gluestackPlugin],
 })

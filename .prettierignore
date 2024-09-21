@@ -2,3 +2,4 @@
 **/.next
 **/.expo
 **/src-tauri/target
+**/src-tauri/gen

@@ -1,0 +1,21 @@
+diff --git a/utils/typescript.js b/utils/typescript.js
+index 60b1474edc71b760be64497f8bfa8b473fd91e80..4ce885e4bdb37ce156666cd29e61b22cd151f79e 100644
+--- a/utils/typescript.js
++++ b/utils/typescript.js
+@@ -24,7 +24,7 @@ module.exports = {
+       plugins: ['@typescript-eslint'],
+       rules: {
+         '@typescript-eslint/array-type': ['warn', { default: 'array' }],
+-        '@typescript-eslint/ban-types': [
++        '@typescript-eslint/no-restricted-types': [
+           'error',
+           {
+             types: {
+@@ -49,7 +49,6 @@ module.exports = {
+                 fixWith: 'string',
+               },
+             },
+-            extendDefaults: false,
+           },
+         ],
+         '@typescript-eslint/consistent-type-assertions': [
