@@ -2,6 +2,19 @@ name: Build Tauri
 
 on:
   workflow_dispatch:
+    inputs:
+      platform-macos:
+        type: boolean
+        description: Whether to build for macOS
+        default: true
+      platform-ubuntu:
+        type: boolean
+        description: Whether to build for Ubuntu
+        default: true
+      platform-windows:
+        type: boolean
+        description: Whether to build for Windows
+        default: true
 
 jobs:
   build:
@@ -19,6 +32,10 @@ jobs:
             args: ""
           - platform: "windows-latest"
             args: ""
+        exclude:
+          - platform: ${{ github.event.inputs.platform-macos && '' || 'macos-latest' }}
+          - platform: ${{ github.event.inputs.platform-ubuntu && '' || 'ubuntu-22.04' }}
+          - platform: ${{ github.event.inputs.platform-windows && '' || 'windows-latest' }}
 
     runs-on: ${{ matrix.platform }}
     steps:
