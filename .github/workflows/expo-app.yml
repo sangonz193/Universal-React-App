@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: bun i
 
-      - name: 👷 Build app
+      - name: Build app
         working-directory: expo-app
         env:
           NODE_OPTIONS: --max-old-space-size=8192
