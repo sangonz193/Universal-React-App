@@ -11,11 +11,27 @@ const config = {
     "plugin:react/jsx-runtime",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "react"],
+  plugins: ["import"],
   settings: {
     react: {
       version: "detect",
     },
+  },
+  rules: {
+    "import/order": [
+      "warn",
+      {
+        groups: [
+          ["builtin", "external"],
+          "internal",
+          ["parent", "index", "sibling"],
+        ],
+        "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+        },
+      },
+    ],
   },
   overrides: [
     {
