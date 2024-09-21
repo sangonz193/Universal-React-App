@@ -8,7 +8,7 @@ const nextConfig = {
     "nativewind",
     "react-native-css-interop",
     "shared",
-    "@legendapp/motion"
+    "@legendapp/motion",
   ],
   experimental: {
     turbo: {
