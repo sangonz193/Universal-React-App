@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useRef, useState } from "react"
-import { useServerInsertedHTML } from "next/navigation"
-import { StyleRegistry, createStyleRegistry } from "styled-jsx"
+import { flush } from "@gluestack-ui/nativewind-utils/flush"
 // eslint-disable-next-line @next/next/no-document-import-in-page
 import { Main } from "next/document"
+import { useServerInsertedHTML } from "next/navigation"
+import React, { useRef, useState } from "react"
 import { AppRegistry } from "react-native-web"
-import { flush } from "@gluestack-ui/nativewind-utils/flush"
+import { StyleRegistry, createStyleRegistry } from "styled-jsx"
+// eslint-disable-next-line @next/next/no-document-import-in-page
 
 export default function StyledJsxRegistry({
   children,

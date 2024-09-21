@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { Demo, DemoButton } from "shared/components/demo"
 import {
   AlertDialog,
@@ -7,9 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogFooter,
 } from "shared/components/ui/alert-dialog"
-import { Heading } from "shared/components/ui/heading"
 import { Button, ButtonText } from "shared/components/ui/button"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { Heading } from "shared/components/ui/heading"
 
 export default function HomeScreen() {
   const [open, setOpen] = useState(false)

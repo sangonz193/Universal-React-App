@@ -1,9 +1,10 @@
-import React, { forwardRef, memo } from "react"
 import { H1, H2, H3, H4, H5, H6 } from "@expo/html-elements"
-import { cssInterop } from "nativewind"
-import { headingStyle } from "./styles"
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
+import { cssInterop } from "nativewind"
+import React, { forwardRef, memo } from "react"
 import { Text } from "react-native"
+
+import { headingStyle } from "./styles"
 
 type IHeadingProps = VariantProps<typeof headingStyle> &
   React.ComponentPropsWithoutRef<typeof H1> & {

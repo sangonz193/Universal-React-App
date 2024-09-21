@@ -1,9 +1,10 @@
 import { ComponentProps, PropsWithChildren } from "react"
-import { Button, ButtonText } from "./ui/button"
 import { Merge } from "type-fest"
-import { Text } from "./ui/text"
-import { View } from "../react-native"
+
 import { cn } from "../cn"
+import { View } from "../react-native"
+import { Button, ButtonText } from "./ui/button"
+import { Text } from "./ui/text"
 
 export function Demo({
   children,

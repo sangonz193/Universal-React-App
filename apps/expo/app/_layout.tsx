@@ -6,6 +6,7 @@ import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
+
 import { NavigationThemeProvider } from "../components/navigation/theme-provider"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

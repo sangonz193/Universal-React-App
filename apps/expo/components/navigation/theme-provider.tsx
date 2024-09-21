@@ -3,8 +3,8 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native"
-import { useColorScheme } from "react-native"
 import { PropsWithChildren, useMemo } from "react"
+import { useColorScheme } from "react-native"
 import { getColor } from "shared/utils/get-color"
 
 export function NavigationThemeProvider({ children }: PropsWithChildren) {

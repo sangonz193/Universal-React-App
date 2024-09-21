@@ -4,8 +4,8 @@
 // Not sure why, components defined in this package that import from "react-native" are not styled in the Tauri app.
 // For that reason, components in this package need to import React Native components from here instead.
 
-import * as RN from "react-native"
 import { cssInterop, remapProps } from "nativewind"
+import * as RN from "react-native"
 
 export const Image = cssInterop(RN.Image, { className: "style" })
 export const Pressable = cssInterop(RN.Pressable, { className: "style" })

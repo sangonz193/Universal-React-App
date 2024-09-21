@@ -1,10 +1,8 @@
 import "./App.css"
 
-import { useState } from "react"
 import { invoke } from "@tauri-apps/api/core"
+import { useState } from "react"
 import { Demo, DemoButton } from "shared/components/demo"
-import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
-import { Heading } from "shared/components/ui/heading"
 import {
   AlertDialog,
   AlertDialogBackdrop,
@@ -13,6 +11,8 @@ import {
   AlertDialogHeader,
 } from "shared/components/ui/alert-dialog"
 import { Button, ButtonText } from "shared/components/ui/button"
+import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
+import { Heading } from "shared/components/ui/heading"
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("")

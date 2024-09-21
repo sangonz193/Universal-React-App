@@ -2,9 +2,9 @@
 // @ts-check
 
 import gluestackPlugin from "@gluestack-ui/nativewind-utils/tailwind-plugin"
-import { resolve, join } from "path"
 import { readdirSync, statSync } from "fs"
 import nativewindPreset from "nativewind/preset"
+import { resolve, join } from "path"
 
 export default /** @satisfies {import('tailwindcss').Config} */ ({
   darkMode: "media",
