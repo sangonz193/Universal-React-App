@@ -32,7 +32,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: ["android", "ios"]
+        platform:
+          - android
+          - ios
         exclude:
           - platform: ${{ github.event.inputs.platform-android && '' || 'android' }}
           - platform: ${{ github.event.inputs.platform-ios && '' || 'ios' }}
@@ -41,6 +43,11 @@ jobs:
     env:
       isApk: ${{ matrix.platform == 'android' && github.event.inputs.profile =='preview' }}
     steps:
+      - name: Log inputs
+        run: |
+          echo "${{ toJSON(github.event.inputs) }}"
+          echo "${{ toJSON(matrix) }}"
+
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
@@ -69,7 +76,7 @@ jobs:
         run: |
           eas build --local \
             --non-interactive \
-            --output=./app-build${{ env.isApk && '.apk' || '' }} \
+            --output=./app-build${{ (env.isApk && '.apk') || '' }} \
             --platform=${{ matrix.platform }} \
             --profile=${{ github.event.inputs.profile }}
 

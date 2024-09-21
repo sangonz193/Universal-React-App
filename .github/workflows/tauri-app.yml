@@ -39,6 +39,11 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Log inputs
+        run: |
+          echo "${{ toJSON(github.event.inputs) }}"
+          echo "${{ toJSON(matrix) }}"
+
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
