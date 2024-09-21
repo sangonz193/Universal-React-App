@@ -37,8 +37,8 @@ jobs:
           - android
           - ios
         exclude:
-          - platform: ${{ github.event.inputs.platform-android == 'true' && 'android' }}
-          - platform: ${{ github.event.inputs.platform-ios == 'true' && 'ios' }}
+          - platform: ${{ github.event.inputs.platform-android == 'false' && 'android' }}
+          - platform: ${{ github.event.inputs.platform-ios == 'false' && 'ios' }}
 
     runs-on: ${{ matrix.platform == 'android' && 'ubuntu-latest' || 'macos-latest' }}
     env:

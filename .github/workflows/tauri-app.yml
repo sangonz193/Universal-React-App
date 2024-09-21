@@ -33,9 +33,9 @@ jobs:
           - "--target x86_64-apple-darwin"
           - ""
         exclude:
-          - platform: ${{ github.event.inputs.platform-macos != 'true' && 'macos-latest' }}
-          - platform: ${{ github.event.inputs.platform-ubuntu != 'true' && 'ubuntu-22.04' }}
-          - platform: ${{ github.event.inputs.platform-windows != 'true' && 'windows-latest' }}
+          - platform: ${{ github.event.inputs.platform-macos == 'false' && 'macos-latest' }}
+          - platform: ${{ github.event.inputs.platform-ubuntu == 'false' && 'ubuntu-22.04' }}
+          - platform: ${{ github.event.inputs.platform-windows == 'false' && 'windows-latest' }}
           - platform: macos-latest
             args: ""
           - platform: ubuntu-22.04
