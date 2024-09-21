@@ -29,6 +29,8 @@ on:
 jobs:
   build:
     runs-on: ${{ github.event.inputs.os }}
+    permissions:
+      contents: write
     env:
       isApk: ${{ github.event.inputs.platform == 'android' && github.event.inputs.profile =='preview' }}
     steps:
