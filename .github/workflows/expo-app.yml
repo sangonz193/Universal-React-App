@@ -27,6 +27,7 @@ on:
 
 jobs:
   build:
+    if: ${{ github.event.inputs.platform-android == 'true' || github.event.inputs.platform-ios == 'true' }}
     permissions:
       contents: write
     strategy:
@@ -35,9 +36,11 @@ jobs:
         platform:
           - android
           - ios
+          - noop
         exclude:
-          - platform: ${{ github.event.inputs.platform-android && '' || 'android' }}
-          - platform: ${{ github.event.inputs.platform-ios && '' || 'ios' }}
+          - platform: ${{ github.event.inputs.platform-android && 'noop' || 'android' }}
+          - platform: ${{ github.event.inputs.platform-ios && 'noop' || 'ios' }}
+          - platform: noop
 
     runs-on: ${{ matrix.platform == 'android' && 'macos-latest' || 'ubuntu-latest' }}
     env:

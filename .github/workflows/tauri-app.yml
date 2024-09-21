@@ -18,6 +18,7 @@ on:
 
 jobs:
   build:
+    if: ${{ github.event.inputs.platform-macos == 'true' || github.event.inputs.platform-ubuntu == 'true' || github.event.inputs.platform-windows == 'true' }}
     permissions:
       contents: write
     strategy:
@@ -32,10 +33,12 @@ jobs:
             args: ""
           - platform: "windows-latest"
             args: ""
+          - platform: noop
         exclude:
-          - platform: ${{ github.event.inputs.platform-macos && '' || 'macos-latest' }}
-          - platform: ${{ github.event.inputs.platform-ubuntu && '' || 'ubuntu-22.04' }}
-          - platform: ${{ github.event.inputs.platform-windows && '' || 'windows-latest' }}
+          - platform: ${{ github.event.inputs.platform-macos && 'noop' || 'macos-latest' }}
+          - platform: ${{ github.event.inputs.platform-ubuntu && 'noop' || 'ubuntu-22.04' }}
+          - platform: ${{ github.event.inputs.platform-windows && 'noop' || 'windows-latest' }}
+          - platform: noop
 
     runs-on: ${{ matrix.platform }}
     steps:
