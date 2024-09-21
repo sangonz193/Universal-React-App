@@ -2,8 +2,8 @@ export const script = (mode: string) => {
   const documentElement = document.documentElement
 
   function getSystemColorMode() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ?
+        "dark"
       : "light"
   }
 

@@ -22,9 +22,9 @@ const SCOPE = "ALERT_DIALOG"
 
 const UIAccessibleAlertDialog = createAlertDialog({
   Root:
-    Platform.OS === "web"
-      ? withStyleContext(View, SCOPE)
-      : withStyleContextAndStates(View, SCOPE),
+    Platform.OS === "web" ?
+      withStyleContext(View, SCOPE)
+    : withStyleContextAndStates(View, SCOPE),
   Body: ScrollView,
   Content: Motion.View,
   CloseButton: Pressable,

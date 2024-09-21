@@ -1,5 +1,6 @@
 {
   "semi": false,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["tva", "cva", "cn"]
+  "tailwindFunctions": ["tva", "cva", "cn"],
+  "experimentalTernaries": true
 }

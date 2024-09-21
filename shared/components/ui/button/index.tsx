@@ -87,9 +87,9 @@ const PrimitiveIcon = React.forwardRef<
 )
 
 const Root =
-  Platform.OS === "web"
-    ? withStyleContext(ButtonWrapper, SCOPE)
-    : withStyleContextAndStates(ButtonWrapper, SCOPE)
+  Platform.OS === "web" ?
+    withStyleContext(ButtonWrapper, SCOPE)
+  : withStyleContextAndStates(ButtonWrapper, SCOPE)
 
 const UIButton = createButton({
   Root: Root,
