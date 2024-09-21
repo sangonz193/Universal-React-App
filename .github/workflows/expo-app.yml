@@ -36,15 +36,14 @@ jobs:
         platform:
           - android
           - ios
-          - noop
         exclude:
-          - platform: ${{ github.event.inputs.platform-android && 'noop' || 'android' }}
-          - platform: ${{ github.event.inputs.platform-ios && 'noop' || 'ios' }}
-          - platform: noop
+          - platform: ${{ !github.event.inputs.platform-android && 'android' }}
+          - platform: ${{ !github.event.inputs.platform-ios && 'ios' }}
 
-    runs-on: ${{ matrix.platform == 'android' && 'macos-latest' || 'ubuntu-latest' }}
+    runs-on: ${{ matrix.platform == 'android' && 'ubuntu-latest' || 'macos-latest' }}
     env:
-      isApk: ${{ matrix.platform == 'android' && github.event.inputs.profile =='preview' }}
+      isApk: ${{ matrix.platform == 'android' && github.event.inputs.profile == 'preview' }}
+
     steps:
       - name: Log inputs
         run: |
