@@ -27,7 +27,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.inputs.platform-android == 'true' || github.event.inputs.platform-ios == 'true' }}
+    if: ${{ github.event.inputs.platform-android || github.event.inputs.platform-ios }}
     permissions:
       contents: write
     strategy:
