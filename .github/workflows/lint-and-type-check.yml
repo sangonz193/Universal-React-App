@@ -26,4 +26,7 @@ jobs:
         run: bun tsc
 
       - name: Prettier check
-        run: npx prettier . --check
+        run: bunx prettier . --check
+
+      - name: Syncpack check
+        run: bunx syncpack list
