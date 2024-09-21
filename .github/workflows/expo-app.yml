@@ -54,7 +54,7 @@ jobs:
         run: bun i
 
       - name: Build app
-        working-directory: expo-app
+        working-directory: apps/expo
         env:
           NODE_OPTIONS: --max-old-space-size=8192
         run: |
@@ -67,10 +67,10 @@ jobs:
       - uses: martinbeentjes/npm-get-version-action@v1.3.1
         id: package-version
         with:
-          path: expo-app
+          path: apps/expo
 
       - name: Simulate build
-        run: echo "Simulating build ${{steps.package-version.outputs.current-version}}" > expo-app/app-build${{ env.isApk && '.apk' || '' }}
+        run: echo "Simulating build ${{steps.package-version.outputs.current-version}}" > apps/expo/app-build${{ env.isApk && '.apk' || '' }}
 
       - uses: softprops/action-gh-release@v2
         with:
@@ -79,7 +79,7 @@ jobs:
           prerelease: false
           draft: true
           files: |
-            expo-app/app-build${{ env.isApk && '.apk' || '' }}
+            apps/expo/app-build${{ env.isApk && '.apk' || '' }}
 
       - name: Submit
         if: ${{ github.event.inputs.should_submit == 'true' }}

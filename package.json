@@ -4,9 +4,7 @@
   "type": "module",
   "packageManager": "bun@1.1.26",
   "workspaces": [
-    "expo-app",
-    "nextjs-app",
-    "tauri-app",
+    "apps/*",
     "shared"
   ],
   "scripts": {
