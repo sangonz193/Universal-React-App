@@ -1,7 +1,7 @@
 {
   "name": "expo-app",
   "main": "main.tsx",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "expo start",
     "android": "DARK_MODE=media expo start --android",
