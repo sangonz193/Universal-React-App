@@ -1,22 +1,19 @@
-name: Build App
+name: Build Expo
+
 on:
   workflow_dispatch:
     inputs:
-      os:
-        type: choice
-        description: OS to build on. Ubuntu is faster, MacOS supports iOS builds
-        options:
-          - macos-latest
-          - ubuntu-latest
       platform:
         type: choice
         description: Platform to build for
+        default: android
         options:
           - android
           - ios
       profile:
         type: choice
         description: Build profile to use
+        default: preview
         options:
           - development
           - preview
@@ -26,9 +23,10 @@ on:
         description: Whether to perform the submit step
         required: true
         default: false
+
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.os }}
+    runs-on: ${{ github.event.inputs.platform == 'ios' && 'macos-latest' || 'ubuntu-latest' }}
     permissions:
       contents: write
     env:
@@ -37,50 +35,44 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
-      - name: setup node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: 🏗 Setup Expo and EAS
-        uses: expo/expo-github-action@v7
-        with:
-          token: ${{ secrets.EXPO_TOKEN }}
-          expo-version: latest
-          eas-version: latest
-
-      - name: 📦 Install dependencies
-        run: bun i
-
-      - name: Setup Java 17
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         if: ${{ github.event.inputs.platform == 'android' }}
         with:
           distribution: "temurin"
           java-version: "17"
 
-      # - name: 👷 Build app
-      #   working-directory: expo-app
-      #   env:
-      #     NODE_OPTIONS: --max-old-space-size=4096
-      #   run: |
-      #     eas build --local \
-      #       --non-interactive \
-      #       --output=./app-build${{ env.isApk && '.apk' || '' }} \
-      #       --platform=${{ github.event.inputs.platform }} \
-      #       --profile=${{ github.event.inputs.profile }}
+      - uses: expo/expo-github-action@v8
+        with:
+          token: ${{ secrets.EXPO_TOKEN }}
+          eas-version: latest
 
-      - name: get-npm-version
+      - name: Install dependencies
+        run: bun i
+
+      - name: 👷 Build app
+        working-directory: expo-app
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+        run: |
+          eas build --local \
+            --non-interactive \
+            --output=./app-build${{ env.isApk && '.apk' || '' }} \
+            --platform=${{ github.event.inputs.platform }} \
+            --profile=${{ github.event.inputs.profile }}
+
+      - uses: martinbeentjes/npm-get-version-action@v1.3.1
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
           path: expo-app
 
       - name: Simulate build
         run: echo "Simulating build ${{steps.package-version.outputs.current-version}}" > expo-app/app-build${{ env.isApk && '.apk' || '' }}
 
-      - name: Release
-        uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v2
         with:
           name: "App v${{ steps.package-version.outputs.current-version }}"
           tag_name: "app-v${{ steps.package-version.outputs.current-version }}"
@@ -89,6 +81,6 @@ jobs:
           files: |
             expo-app/app-build${{ env.isApk && '.apk' || '' }}
 
-      - name: 🚢 Submit
+      - name: Submit
         if: ${{ github.event.inputs.should_submit == 'true' }}
-        run: eas submit -p ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --path app-build
+        run: eas submit -p ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --path app-build${{ env.isApk && '.apk' || '' }}
