@@ -6,7 +6,7 @@
 			"label": "Expo: Android",
 			"args": ["android"],
 			"options": {
-				"cwd": "${workspaceFolder}/expo-app"
+				"cwd": "${workspaceFolder}/apps/expo"
 			},
 			"problemMatcher": []
 		},
@@ -14,7 +14,7 @@
 			"label": "Expo: iOS",
 			"args": ["ios"],
 			"options": {
-				"cwd": "${workspaceFolder}/expo-app"
+				"cwd": "${workspaceFolder}/apps/expo"
 			},
 			"problemMatcher": []
 		},
@@ -22,7 +22,7 @@
 			"label": "Next.js",
 			"args": ["dev"],
 			"options": {
-				"cwd": "${workspaceFolder}/nextjs-app"
+				"cwd": "${workspaceFolder}/apps/nextjs"
 			},
 			"problemMatcher": []
 		},
@@ -30,7 +30,7 @@
 			"label": "Tauri",
 			"args": ["tauri", "dev"],
 			"options": {
-				"cwd": "${workspaceFolder}/tauri-app"
+				"cwd": "${workspaceFolder}/apps/tauri"
 			},
 			"problemMatcher": []
 		}
