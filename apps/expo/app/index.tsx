@@ -11,7 +11,7 @@ import {
 import { Button, ButtonText } from "shared/components/ui/button"
 import { Heading } from "shared/components/ui/heading"
 
-export default function HomeScreen() {
+export default function Index() {
   const [open, setOpen] = useState(false)
 
   return (
