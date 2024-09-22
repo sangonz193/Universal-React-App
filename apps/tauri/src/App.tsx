@@ -11,8 +11,8 @@ import {
   AlertDialogHeader,
 } from "shared/components/ui/alert-dialog"
 import { Button, ButtonText } from "shared/components/ui/button"
-import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
 import { Heading } from "shared/components/ui/heading"
+import { SharedProviders } from "shared/providers"
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("")
@@ -24,10 +24,7 @@ function App() {
   }
 
   return (
-    <GluestackUIProvider
-      className="flex grow flex-col items-center justify-center"
-      mode="system"
-    >
+    <SharedProviders>
       <Demo className="m-auto">
         <DemoButton onPress={greet}>Greet</DemoButton>
       </Demo>
@@ -52,7 +49,7 @@ function App() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </GluestackUIProvider>
+    </SharedProviders>
   )
 }
 

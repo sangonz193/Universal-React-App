@@ -1,31 +1,23 @@
-import React, { PropsWithChildren } from "react"
+import React, { ReactNode } from "react"
 
-export function compactProviders(
-  wrappers: [
-    React.FC<PropsWithChildren>,
-    React.FC<PropsWithChildren>,
-    ...React.FC<PropsWithChildren>[],
-  ],
+export function compactRenders(
+  wrappers: ReturnType<typeof r>[],
+  children?: React.ReactNode,
 ) {
-  const copy = [...wrappers]
-  const last = copy.pop()!
-
-  return withWrappers(copy, last)
+  return wrappers.reduceRight((acc, item) => item({ children: acc }), children)
 }
 
-export const withWrappers = <TProps extends object>(
-  wrappers: React.FC<React.PropsWithChildren>[],
-  Component: React.ComponentType<TProps>,
-): React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<TProps> &
-    React.RefAttributes<React.ComponentType<TProps>>
-> =>
-  // eslint-disable-next-line react/display-name
-  React.forwardRef<React.ComponentType<TProps>, TProps>((props, ref) =>
-    wrappers.reduceRight(
-      (previousValue, CurrentValue) => (
-        <CurrentValue>{previousValue}</CurrentValue>
-      ),
-      <Component ref={ref} {...props} />,
-    ),
-  )
+export function r<TProps extends { children?: ReactNode }>(
+  ...params: TProps extends { children?: ReactNode } ?
+    | [React.ComponentType<{ children?: ReactNode }>]
+    | [React.ComponentType<{ children: ReactNode }>]
+    | [React.ComponentType<TProps>, Omit<TProps, "children"> | undefined]
+  : [React.ComponentType<TProps>, Omit<TProps, "children">]
+) {
+  const [Component, _props] = params
+
+  return function render(props: { children?: ReactNode }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return <Component {...props} {...((_props ?? {}) as any)} />
+  }
+}

@@ -5,7 +5,7 @@ import { useFonts } from "expo-font"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
-import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
+import { SharedProviders } from "shared/providers"
 
 import { NavigationThemeProvider } from "../components/navigation/theme-provider"
 
@@ -28,13 +28,13 @@ export default function RootLayout() {
   }
 
   return (
-    <GluestackUIProvider mode="system">
+    <SharedProviders>
       <NavigationThemeProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </NavigationThemeProvider>
-    </GluestackUIProvider>
+    </SharedProviders>
   )
 }
