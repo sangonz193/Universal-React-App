@@ -1,8 +1,9 @@
 // @ts-check
-const sharedConfig = require("shared/tailwind.config")
+
+import sharedConfig from "shared/tailwind.config"
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   ...sharedConfig,
   content: [
     ...sharedConfig.content,
@@ -10,3 +11,5 @@ module.exports = {
     "./components/**/*.{tsx,jsx,ts,js}",
   ],
 }
+
+export default config

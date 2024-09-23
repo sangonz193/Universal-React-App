@@ -1,16 +1,26 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "../../tsconfig.options.json",
   "compilerOptions": {
+    "noEmit": true,
+
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]
-    },
-    "strict": true
+    }
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "app/**/*",
+    "components/**/*",
+    "hooks/**/*",
+    "assets/**/*.ts",
+    "domains/**/*",
+    "*.js",
+    "*.ts",
+    "../../shared/**/*",
+
+    // Expo specific paths
     ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "../shared/**/*"
-  ]
+    "expo-env.d.ts"
+  ],
+  "references": [{ "path": "../../shared" }]
 }

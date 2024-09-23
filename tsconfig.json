@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.options.json",
+  "files": [],
+  "references": [
+    { "path": "apps/expo" },
+    { "path": "apps/nextjs" },
+    { "path": "apps/tauri" },
+    { "path": "shared" }
+  ]
+}

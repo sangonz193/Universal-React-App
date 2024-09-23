@@ -3,3 +3,6 @@
 **/.expo
 **/src-tauri/target
 **/src-tauri/gen
+
+lib/
+*.tsbuildinfo
