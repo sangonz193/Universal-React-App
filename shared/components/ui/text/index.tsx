@@ -1,15 +1,14 @@
-
 import type { VariantProps } from "@gluestack-ui/nativewind-utils"
 import React from "react"
 import { Text as RNText } from "react-native"
 
 import { textStyle } from "./styles"
-import { Text as StyledRNText } from "../../../react-native"
+import { Text as StyledRNText } from "~shared/react-native"
 
 type ITextProps = React.ComponentProps<typeof StyledRNText> &
   VariantProps<typeof textStyle>
 
-const Text = React.forwardRef<RNText, ITextProps>(
+const Text = React.forwardRef<typeof RNText, ITextProps>(
   (
     {
       className,
@@ -23,7 +22,6 @@ const Text = React.forwardRef<RNText, ITextProps>(
       highlight,
       ...props
     },
-    ref,
   ) => {
     return (
       <StyledRNText
@@ -39,7 +37,6 @@ const Text = React.forwardRef<RNText, ITextProps>(
           class: className,
         })}
         {...props}
-        ref={ref}
       />
     )
   },

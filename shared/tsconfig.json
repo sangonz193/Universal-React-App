@@ -2,7 +2,11 @@
   "extends": "../tsconfig.options.json",
   "compilerOptions": {
     "emitDeclarationOnly": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
+
+    "paths": {
+      "~shared/*": ["./*"]
+    }
   },
   "include": [
     "components/**/*",
