@@ -8,7 +8,7 @@
     "shared"
   ],
   "scripts": {
-    "tsc": "turbo run tsc",
+    "tsc": "tsc --build",
     "lint": "turbo run lint"
   },
   "devDependencies": {
