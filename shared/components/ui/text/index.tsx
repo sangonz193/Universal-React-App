@@ -9,20 +9,18 @@ type ITextProps = React.ComponentProps<typeof StyledRNText> &
   VariantProps<typeof textStyle>
 
 const Text = React.forwardRef<typeof RNText, ITextProps>(
-  (
-    {
-      className,
-      isTruncated,
-      bold,
-      underline,
-      strikeThrough,
-      size = "md",
-      sub,
-      italic,
-      highlight,
-      ...props
-    },
-  ) => {
+  ({
+    className,
+    isTruncated,
+    bold,
+    underline,
+    strikeThrough,
+    size = "md",
+    sub,
+    italic,
+    highlight,
+    ...props
+  }) => {
     return (
       <StyledRNText
         className={textStyle({
