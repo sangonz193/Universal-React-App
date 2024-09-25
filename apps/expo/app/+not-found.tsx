@@ -1,7 +1,7 @@
 import { Link, Stack } from "expo-router"
 import { StyleSheet, View } from "react-native"
-import { Button, ButtonText } from "shared/components/ui/button"
-import { Heading } from "shared/components/ui/heading"
+import { Button, ButtonText } from "shared/components/gluestack/button"
+import { Heading } from "shared/components/gluestack/heading"
 
 export default function NotFoundScreen() {
   return (

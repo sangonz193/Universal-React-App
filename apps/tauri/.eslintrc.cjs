@@ -35,7 +35,7 @@ const config = {
   },
   overrides: [
     {
-      files: ["components/ui/**/*.tsx"],
+      files: ["components/gluestack/**/*.tsx"],
       rules: {
         "react/display-name": "off",
       },

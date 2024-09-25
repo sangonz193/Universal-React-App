@@ -8,9 +8,9 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-} from "shared/components/ui/alert-dialog"
-import { Button, ButtonText } from "shared/components/ui/button"
-import { Heading } from "shared/components/ui/heading"
+} from "shared/components/gluestack/alert-dialog"
+import { Button, ButtonText } from "shared/components/gluestack/button"
+import { Heading } from "shared/components/gluestack/heading"
 
 function _Demo() {
   const [open, setOpen] = useState(false)

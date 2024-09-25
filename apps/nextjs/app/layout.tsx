@@ -2,7 +2,7 @@ import "./globals.css"
 
 import type { Metadata } from "next"
 import localFont from "next/font/local"
-import { GluestackUIProvider } from "shared/components/ui/gluestack-ui-provider"
+import { GluestackUIProvider } from "shared/components/gluestack/gluestack-ui-provider"
 
 import StyledJsxRegistry from "./registry"
 

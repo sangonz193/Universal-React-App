@@ -3,8 +3,8 @@ import { Merge } from "type-fest"
 
 import { cn } from "../cn"
 import { View } from "../react-native"
-import { Button, ButtonText } from "./ui/button"
-import { Text } from "./ui/text"
+import { Button, ButtonText } from "./gluestack/button"
+import { Text } from "./gluestack/text"
 
 export function Demo({
   children,

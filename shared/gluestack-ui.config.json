@@ -3,6 +3,6 @@
     "config": "tailwind.config.ts"
   },
   "app": {
-    "components": "components/ui"
+    "components": "components/gluestack"
   }
 }

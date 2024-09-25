@@ -35,7 +35,7 @@ const config = {
   },
   overrides: [
     {
-      files: ["components/ui/**/*.tsx"],
+      files: ["components/gluestack/**/*.tsx"],
       rules: {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-explicit-any": "off",

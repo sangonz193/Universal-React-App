@@ -1,4 +1,4 @@
-import { GluestackUIProvider } from "./components/ui/gluestack-ui-provider"
+import { GluestackUIProvider } from "./components/gluestack/gluestack-ui-provider"
 import { compactRenders, r } from "./utils/react"
 
 export function SharedProviders({ children }: { children?: React.ReactNode }) {
