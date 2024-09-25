@@ -43,6 +43,7 @@ jobs:
     runs-on: ${{ matrix.platform == 'android' && 'ubuntu-latest' || 'macos-latest' }}
     env:
       isApk: ${{ matrix.platform == 'android' && github.event.inputs.profile == 'preview' }}
+      artifactName: ""
 
     steps:
       - name: Log inputs
@@ -71,6 +72,17 @@ jobs:
       - name: Install dependencies
         run: bun i
 
+      - name: Set artifact name
+        id: app-metadata
+        run: |
+          APP_VERSION=$(cat apps/expo/package.json | jq '.version' | tr -d '"')
+          echo "::set-output name=app-version::${APP_VERSION}"
+
+          APP_SLUG=$(cat package.json | jq '.name' | tr -d '"')
+          echo "::set-output name=app-slug::${APP_SLUG}"
+
+          echo "::set-output name=artifact-name::${APP_SLUG}_${APP_VERSION}${{ env.isApk && '.apk' || '' }}"
+
       - name: Build app
         working-directory: apps/expo
         env:
@@ -78,27 +90,19 @@ jobs:
         run: |
           eas build --local \
             --non-interactive \
-            --output=./app-build${{ (env.isApk && '.apk') || '' }} \
+            --output=./${{ env.artifactName }} \
             --platform=${{ matrix.platform }} \
             --profile=${{ github.event.inputs.profile }}
 
-      - uses: martinbeentjes/npm-get-version-action@v1.3.1
-        id: package-version
-        with:
-          path: apps/expo
-
-      - name: Simulate build
-        run: echo "Simulating build ${{steps.package-version.outputs.current-version}}" > apps/expo/app-build${{ env.isApk && '.apk' || '' }}
-
       - uses: softprops/action-gh-release@v2
         with:
-          name: "App v${{ steps.package-version.outputs.current-version }}"
-          tag_name: "app-v${{ steps.package-version.outputs.current-version }}"
+          name: "App v${{ steps.app-metadata.outputs.app-version }}"
+          tag_name: "app-v${{ steps.app-metadata.outputs.app-version }}"
           prerelease: false
           draft: true
           files: |
-            apps/expo/app-build${{ env.isApk && '.apk' || '' }}
+            apps/expo/${{ env.artifactName }}
 
       - name: Submit
         if: ${{ github.event.inputs.should_submit == 'true' }}
-        run: eas submit -p ${{ matrix.platform }} --profile ${{ github.event.inputs.profile }} --path app-build${{ env.isApk && '.apk' || '' }}
+        run: eas submit -p ${{ matrix.platform }} --profile ${{ github.event.inputs.profile }} --path ${{ env.artifactName }}
