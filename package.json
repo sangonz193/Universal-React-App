@@ -17,6 +17,10 @@
     "syncpack": "^13.0.0",
     "turbo": "^2.1.2"
   },
+  "overrides": {
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0"
+  },
   "patchedDependencies": {
     "gluestack-ui@0.7.9": "patches/gluestack-ui@0.7.9.patch",
     "react-native-css-interop@0.0.36": "patches/react-native-css-interop@0.0.36.patch",

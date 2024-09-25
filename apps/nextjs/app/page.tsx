@@ -1,6 +1,5 @@
-import { View } from "shared/react-native"
-
 import { Demo } from "~shared/components/demo"
+import { View } from "~shared/react-native"
 
 export default function Index() {
   return (
