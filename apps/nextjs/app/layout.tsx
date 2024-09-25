@@ -2,9 +2,8 @@ import "./globals.css"
 
 import type { Metadata } from "next"
 import localFont from "next/font/local"
-import { GluestackUIProvider } from "shared/components/gluestack/gluestack-ui-provider"
 
-import StyledJsxRegistry from "./registry"
+import { Providers } from "./providers"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,9 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <StyledJsxRegistry>
-          <GluestackUIProvider mode="system">{children}</GluestackUIProvider>
-        </StyledJsxRegistry>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
