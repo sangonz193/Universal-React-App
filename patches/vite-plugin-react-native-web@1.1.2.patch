@@ -1,0 +1,72 @@
+diff --git a/dist/cjs/index.js b/dist/cjs/index.js
+index ef619dc28383015086b96dfeb79aa1845ccb2928..4acfc4fc57e3e39dde5a60c647ec1cb409df6d84 100644
+--- a/dist/cjs/index.js
++++ b/dist/cjs/index.js
+@@ -39,7 +39,7 @@ const esbuildPlugin = () => ({
+         });
+     },
+ });
+-const reactNativeWeb = ( /*options: ViteReactNativeWebOptions = {}*/) => ({
++const reactNativeWeb = (options) => ({
+     enforce: 'pre',
+     name: 'react-native-web',
+     config: () => ({
+@@ -49,13 +49,13 @@ const reactNativeWeb = ( /*options: ViteReactNativeWebOptions = {}*/) => ({
+             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+         },
+         resolve: {
+-            extensions,
++            extensions: (options && options.extensions || []).concat(extensions),
+             alias: [{ find: 'react-native', replacement: 'react-native-web' }],
+         },
+         optimizeDeps: {
+             esbuildOptions: {
+                 plugins: [esbuildPlugin()],
+-                resolveExtensions: extensions,
++                resolveExtensions: (options && options.extensions || []).concat(extensions),
+             },
+         },
+     }),
+diff --git a/dist/es/index.js b/dist/es/index.js
+index d36bf8ea928ab77b766bee8b616513e98080a543..15958fb7b0e8fdf906b051bf137f233ea15e5421 100644
+--- a/dist/es/index.js
++++ b/dist/es/index.js
+@@ -35,7 +35,7 @@ const esbuildPlugin = () => ({
+         });
+     },
+ });
+-const reactNativeWeb = ( /*options: ViteReactNativeWebOptions = {}*/) => ({
++const reactNativeWeb = (options) => ({
+     enforce: 'pre',
+     name: 'react-native-web',
+     config: () => ({
+@@ -45,13 +45,13 @@ const reactNativeWeb = ( /*options: ViteReactNativeWebOptions = {}*/) => ({
+             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+         },
+         resolve: {
+-            extensions,
++            extensions: (options && options.extensions || []).concat(extensions),
+             alias: [{ find: 'react-native', replacement: 'react-native-web' }],
+         },
+         optimizeDeps: {
+             esbuildOptions: {
+                 plugins: [esbuildPlugin()],
+-                resolveExtensions: extensions,
++                resolveExtensions: (options && options.extensions || []).concat(extensions),
+             },
+         },
+     }),
+diff --git a/types/index.d.ts b/types/index.d.ts
+index c18f3ee77407d5f8a6c1321180b99e8370ef3c3c..8583e8ce03430af1c6995f8a07e18e92c94fb4e6 100644
+--- a/types/index.d.ts
++++ b/types/index.d.ts
+@@ -1,7 +1,7 @@
+ import type { Plugin as VitePlugin } from "vite"
+ 
+ export type ViteReactNativeWebOptions = {
+-
++  extensions?: string[]
+ }
+ 
+ export default function reactNativeWeb(options?: ViteReactNativeWebOptions): VitePlugin
+\ No newline at end of file

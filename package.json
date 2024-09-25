@@ -22,6 +22,7 @@
     "react-native-css-interop@0.0.36": "patches/react-native-css-interop@0.0.36.patch",
     "@legendapp/motion@2.4.0": "patches/@legendapp%2Fmotion@2.4.0.patch",
     "eslint-config-expo@7.1.2": "patches/eslint-config-expo@7.1.2.patch",
-    "nativewind@4.0.36": "patches/nativewind@4.0.36.patch"
+    "nativewind@4.0.36": "patches/nativewind@4.0.36.patch",
+    "vite-plugin-react-native-web@1.1.2": "patches/vite-plugin-react-native-web@1.1.2.patch"
   }
 }

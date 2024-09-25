@@ -1,25 +1,24 @@
-"use client"
-
 import { useState } from "react"
-import { Demo, DemoButton } from "shared/components/demo"
+
+import { platform } from "./platform"
 import {
   AlertDialog,
   AlertDialogBackdrop,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-} from "shared/components/gluestack/alert-dialog"
-import { Button, ButtonText } from "shared/components/gluestack/button"
-import { Heading } from "shared/components/gluestack/heading"
+} from "../gluestack/alert-dialog"
+import { Button, ButtonText } from "../gluestack/button"
+import { Heading } from "../gluestack/heading"
 
-function _Demo() {
+export function DemoButton() {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Demo className="m-auto">
-        <DemoButton onPress={() => setOpen(true)}>Greet</DemoButton>
-      </Demo>
+      <Button onPress={() => setOpen(true)}>
+        <ButtonText>Greet from {platform}</ButtonText>
+      </Button>
 
       <AlertDialog isOpen={open} onClose={() => setOpen(false)} size="xs">
         <AlertDialogBackdrop />
@@ -27,7 +26,7 @@ function _Demo() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <Heading className="text-typography-950 font-semibold">
-              Hello from Next.js!
+              {platform} says hi!
             </Heading>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -40,5 +39,3 @@ function _Demo() {
     </>
   )
 }
-
-export { _Demo as Demo }

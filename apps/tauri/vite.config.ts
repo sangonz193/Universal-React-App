@@ -9,7 +9,9 @@ const host = process.env.TAURI_DEV_HOST
 export default defineConfig(async () => ({
   plugins: [
     tsconfigPaths(),
-    reactNativeWeb(),
+    reactNativeWeb({
+      extensions: [".tauri.tsx", ".tauri.ts"],
+    }),
     react({
       jsxImportSource: "nativewind",
     }),
