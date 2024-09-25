@@ -76,12 +76,15 @@ jobs:
         id: app-metadata
         run: |
           APP_VERSION=$(cat apps/expo/package.json | jq '.version' | tr -d '"')
-          echo "::set-output name=app-version::${APP_VERSION}"
-
           APP_SLUG=$(cat package.json | jq '.name' | tr -d '"')
-          echo "::set-output name=app-slug::${APP_SLUG}"
 
-          echo "::set-output name=artifact-name::${APP_SLUG}_${APP_VERSION}${{ env.isApk && '.apk' || '' }}"
+          # log values
+          echo "APP_VERSION=${APP_VERSION}"
+          echo "APP_SLUG=${APP_SLUG}"
+
+          echo "app-version=${APP_VERSION}" >> $GITHUB_OUTPUT
+          echo "app-slug=${APP_SLUG}" >> $GITHUB_OUTPUT
+          echo "artifact-name=${APP_SLUG}_${APP_VERSION}${{ env.isApk && '.apk' || '' }}" >> $GITHUB_ENV
 
       - name: Build app
         working-directory: apps/expo
